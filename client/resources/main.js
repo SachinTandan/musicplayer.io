@@ -109,7 +109,7 @@ function editProduct() {
     const isbn = document.getElementById('isbn').value;
     const publishedDate = document.getElementById('publishedDate').value;
     const author = document.getElementById('author').value;
-    fetch('http://localhost:3000/books/' + prodId, {
+    fetch('http://localhost:3000/musics/' + prodId, {
             method: 'PUT',
             headers: {
                 'Content-type': 'application/json',
@@ -125,11 +125,11 @@ function editProduct() {
             const productDiv = document.getElementById(prodId);
             productDiv.querySelector('h2').textContent = title;
             const paragraphArr = productDiv.querySelectorAll('p');
-            paragraphArr[0].textContent = isbn;
-            paragraphArr[1].textContent = publishedDate;
-            paragraphArr[2].textContent = author;
+            // paragraphArr[0].textContent = isbn;
+            paragraphArr[0].textContent = publishedDate;
+            paragraphArr[1].textContent = author;
 
-            document.getElementById('product-heading').textContent = 'Add a new Book';
+            document.getElementById('product-heading').textContent = 'Add a new music';
             document.getElementById('product-btn').dataset.id = '';
             document.getElementById('product-form').reset();
         });
