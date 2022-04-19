@@ -30,7 +30,7 @@ app.use(express.urlencoded());
 // app.use(passport.initialize());
 // app.use(passport.session())
 app.use('/musics', musicRouter);
-app.use(userRouter);
+app.use('/login',userRouter);
 
 app.use((req, res, next) => {
     res.status(401).json({ error: req.url + ' API not supported!' });
