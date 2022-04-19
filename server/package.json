@@ -11,6 +11,10 @@
     "license": "ISC",
     "dependencies": {
         "cors": "^2.8.5",
-        "express": "^4.17.1"
+        "expres": "^0.0.5",
+        "express": "^4.17.1",
+        "express-session": "^1.17.2",
+        "passport": "^0.5.2",
+        "passport-local": "^1.0.0"
     }
 }
