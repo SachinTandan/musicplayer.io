@@ -12,7 +12,7 @@ window.onload = function() {
         if (!document.getElementById('product-btn').dataset.id) {
             addProduct();
         } else {
-            editProduct();
+            editProduct();  
         }
     }
 }
@@ -57,7 +57,7 @@ function renderBook(prod) {
         event.preventDefault();
         document.getElementById('product-heading').textContent = 'Edit Product';
         document.getElementById('title').value = prod.title;
-        document.getElementById('isbn').value = prod.isbn;
+        
         document.getElementById('publishedDate').value = prod.publishedDate;
         document.getElementById('author').value = prod.author;
         document.getElementById('product-btn').dataset.id = prod.id;
@@ -94,7 +94,7 @@ async function addProduct() {
         },
         body: JSON.stringify({
             title: document.getElementById('title').value,
-            isbn: document.getElementById('isbn').value,
+           
             publishedDate: document.getElementById('publishedDate').value,
             author: document.getElementById('author').value
         })
@@ -106,7 +106,7 @@ async function addProduct() {
 function editProduct() {
     const prodId = document.getElementById('product-btn').dataset.id;
     const title = document.getElementById('title').value;
-    const isbn = document.getElementById('isbn').value;
+    
     const publishedDate = document.getElementById('publishedDate').value;
     const author = document.getElementById('author').value;
     fetch('http://localhost:3000/musics/' + prodId, {
@@ -116,7 +116,7 @@ function editProduct() {
             },
             body: JSON.stringify({
                 title: title,
-                isbn: isbn,
+                
                 publishedDate: publishedDate,
                 author: author
             })
