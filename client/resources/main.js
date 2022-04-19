@@ -1,6 +1,9 @@
 window.onload = function() {
     getProducts();
-
+    document.getElementById('someform').onclick= function(event) {
+        event.preventDefault();
+        validate_user();
+    }
     document.getElementById('nav-home').onclick = function(event) {
         event.preventDefault();
         getProducts();
@@ -16,7 +19,10 @@ window.onload = function() {
         }
     }
 }
-
+async function validate_user(){
+    let users = await fetch('http://localhost:4000/login').then(res=>res.json())
+    console.log(users)
+}
 async function getProducts() {
     let products = await fetch('http://localhost:3000/books/').then(response => response.json());
     products.forEach(prod => renderBook(prod));
