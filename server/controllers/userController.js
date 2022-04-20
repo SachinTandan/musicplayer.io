@@ -11,9 +11,11 @@ exports.getUser = (req, res, next) => {
     res.json(check);
 }
 exports.getEnque= (req, res, next) => {
+    // console.log("enquee")
     res.json(User.enqueing(req.body.songId,req.body.sessionId))
 }
 exports.getDnque= (req, res, next) => {
+    // console.log("boom")
     res.json(User.dequeing(req.body.songId,req.body.sessionId))
 }
 exports.getPlaylist=(req,res,next)=>{
