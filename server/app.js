@@ -31,7 +31,7 @@ app.use(express.urlencoded());
 // app.use(passport.session())
 app.use('/musics', musicRouter);
 app.use('/login',userRouter);
-
+app.use('/playlist',userRouter);
 app.use((req, res, next) => {
     res.status(401).json({ error: req.url + ' API not supported!' });
 });
@@ -44,4 +44,4 @@ app.use((err, req, res, next) => {
     }
 });
 
-app.listen(4000, () => console.log('listening to 4000...'));
+app.listen(5000, () => console.log('listening to 5000...'));

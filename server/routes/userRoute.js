@@ -1,6 +1,7 @@
-const userRouter= require('../controllers/userController')
+const userController= require('../controllers/userController')
 const express= require('express');
 const router = express.Router();
-router.post('/',userRouter.getUser);
+router.post('/',userController.getUser);
+router.get('/',userController.getPlaylist);
 
 module.exports =router;

@@ -11,30 +11,54 @@
     <!-- <link href="../musicplayer.io/client/resources/bootstrap.min.css" rel="stylesheet"> -->
     <!-- <link href="../musicplayer.io/client/resources/custom.css" rel="stylesheet"> -->
     <!-- <script src="./resources/bootstrap.bundle.min.js"></script> -->
-    <script src="./client/resources/main.js"></script>
+    <script src="https://kit.fontawesome.com/d62ae8056d.js" 
+      crossorigin="anonymous"></script>
+    <script src="./client/resources/main.js" defer></script>
 </head>
 
 <body>
 
     <header>
         <nav class="navbar navbar-dark bg-dark justify-content-between">
-            <a class="navbar-brand">Music Player</a>
+            <a class="navbar-brand">Music Player       <i class='fas fa-headphones' style='font-size:48px;color:red'></i></a>
             <form  id="someform"  class="form-inline">
-                <input class="form-control mr-sm-2" id="username" type="username" placeholder="username" aria-label="Search">
-                <input class="form-control mr-sm-2" id="password" type="password" placeholder="password" aria-label="Search">
-              <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
+                <input class="form-control mr-sm-2" id="username" required type="username" placeholder="username" aria-label="Search">
+                <input class="form-control mr-sm-2" id="password" required type="password" placeholder="password" aria-label="Search">
               <button class="btn btn-outline-success my-2 my-sm-0"  id="submit" type="submit">Login</button>
+            </form>
+
+            <div  id="search-panel"  class="form-inline">
+                <input class="form-control mr-sm-2" id="txtSearch" type="text" placeholder="search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0"  id="search" type="submit">Search</button>
+              <button class="btn btn-outline-success my-2 my-sm-0"  id="logout" type="submit">Logout</button>
+              <!-- <button class="fa fa-minus" -->
             </form>
           </nav>
     </header>
 
     <main class="main-flex">
-        <div class="spider">
-
+        <div class="spider" id="spider">
+              
+               <table class="table table-hover table-dark">
+                <caption>List of musics</caption>
+                <thead>
+                   <tr>
+                       <th scope="col">Id</th>
+                       <th scope="col">Title</th>
+                       <th scope="col">Artist</th>
+                       <th scope="col">Genre</th>
+                       <th scope="col">Release Date</th>
+                       <th scope="col">Action
+                       </th>
+                   </tr>
+               </thead>
+            <tbody id="musicList">
+                
+            </tbody>
+            </table>
+            playlist
         </div>
-        <div class="playlist">
-
-        </div>
+        
 
 
     </main>

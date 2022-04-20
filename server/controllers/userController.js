@@ -10,3 +10,6 @@ exports.getUser = (req, res, next) => {
     }
     res.json(check);
 }
+exports.getPlaylist=(req,res,next)=>{
+res.json(User.getPlaylist(req.body.username,req.body.password));
+}
