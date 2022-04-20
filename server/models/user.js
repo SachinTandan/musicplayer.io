@@ -31,8 +31,10 @@ module.exports = class User {
     }
     //dequeing applications
     static dequeing(songId, sessionId) {
+        console.log('boomboom user vitra ko deque');
         let user = users.find(u => u.sessionId == sessionId);
         let songIndex = user.playlist.findIndex(x => x.songId == songId);
+        console.log('vitra ko deque'+songIndex);
         if (songIndex == 0) {
             user.playlist = user.playlist.filter(x => x.songId != songId);
         }

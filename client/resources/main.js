@@ -26,18 +26,7 @@ function fetchAllPlaylist() {
   }).then(res => res.json())
     .then(res => {
 
-      let htmlString = "";
-      res.forEach(element => {
-        htmlString += `<tr><td>${element.songId}</td>
-                    <td >${element.title}</td>
-                    <td>${element.artist}</td>
-                    <td>${element.genre}</td>
-                    <td>${element.releaseDate}</td>
-                    <td><button  i tag="${element.songId}" class="fa-solid fa-minus  deque" ></button>
-                        <button  id="addToplaylist"  class="fa-solid fa-play" ></button></td></tr>`;
-      });
-      htmlString += "";
-      document.getElementById("playList").innerHTML = htmlString;
+      loadMyPlayList(res);
     });
 }
 // add action listner for search
@@ -89,12 +78,16 @@ function refreshSongListEvent() {
       enqueue(this.getAttribute("tag"));
     });
   });
-  let btnss = document.getElementsByClassName("deque");
-  console.log(btnss);
-  Array.prototype.forEach.call(btnss, function addClickListener(btn) {
-   
+  
+}
+//function to refresh the event binding of play list
+function refreshPlayListEvent() {
+  let btns = document.getElementsByClassName("dequeue");
+  // console.log("fwcwcwc");
+  Array.prototype.forEach.call(btns, function addClickListener(btn) {
+    // console.log("fwcwcwc");
     btn.addEventListener("click", function (event) {
-      console.log('test');
+      console.log("fwcw88cwc");
       dequeue(this.getAttribute("tag"));
     });
   });
@@ -113,24 +106,29 @@ const enqueue = function (songId) {
   })
     .then((res) => res.json())
     .then(res => {
-      let htmlString = "";
-      res.forEach(element => {
-        htmlString += `<tr><td>${element.songId}</td>
-                <td >${element.title}</td>
-                <td>${element.artist}</td>
-                <td>${element.genre}</td>
-                <td>${element.releaseDate}</td>
-                <td><button  id="addToplaylist"  class="fa-solid fa-minus" ></button>
-                    <button  id="addToplaylist"  class="fa-solid fa-play" ></button></td></tr>`;
-      });
-      htmlString += "";
-      document.getElementById("playList").innerHTML = htmlString;
+      loadMyPlayList(res);
     })
 }
 
+function loadMyPlayList(res){
+  let htmlString = "";
+  res.forEach(element => {
+    htmlString += `<tr><td>${element.songId}</td>
+            <td >${element.title}</td>
+            <td>${element.artist}</td>
+            <td>${element.genre}</td>
+            <td>${element.releaseDate}</td>
+            <td><button  tag="${element.songId}" class="fa-solid fa-minus  dequeue" ></button>
+                <button  id="addToplaylist"  class="fa-solid fa-play playSong" ></button></td></tr>`;
+  });
+  htmlString += "";
+  document.getElementById("playList").innerHTML = htmlString;
+  refreshPlayListEvent();
+}
 //function to dequeue the songs
 const dequeue = function (songId) {
-  fetch("http://localhost:5000/playlist/dequeueSong", {
+  console.log('fetch wala funtio'+sessionStorage.getItem("sessionId"));
+    fetch("http://localhost:5000/playlist/dequeueSong", {
     method: "POST",
     body: JSON.stringify({
       sessionId: sessionStorage.getItem("sessionId"),
@@ -144,17 +142,7 @@ const dequeue = function (songId) {
     .then(res => {
 
       let htmlString = "";
-      res.forEach(element => {
-        htmlString += `<tr><td>${element.songId}</td>
-                <td >${element.title}</td>
-                <td>${element.artist}</td>
-                <td>${element.genre}</td>
-                <td>${element.releaseDate}</td>
-                <td><button  id="addToplaylist"  class="fa-solid fa-minus" ></button>
-                    <button  id="addToplaylist"  class="fa-solid fa-play" ></button></td></tr>`;
-      });
-      htmlString += "";
-      document.getElementById("playList").innerHTML = htmlString;
+      loadMyPlayList(res);
     })
 };
 

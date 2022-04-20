@@ -5,8 +5,9 @@ router.post('/',userController.getUser);
 router.get('/:sessionId',userController.getPlaylist);
 
 router.post('/enqueueSong',userController.getEnque);
-console.log("dequee boom")
 router.post('/dequeueSong',userController.getDnque);
+console.log("dequee router")
+
 // router.get('/:title',userController)
 module.exports =router;
 
