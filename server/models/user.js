@@ -1,5 +1,7 @@
-let users = [{ userid: 1, username: 'standan', password: 'tandan', sessionId: '', playlist: [] }
-    , { userid: 2, username: 'standana', password: 'tandana', sessionId: '', playlist: [] }];
+const Music= require('./music')
+
+let users = [{ userid: 1, username: 'standan', password: 'tandan', sessionId: '', playlist: [{songId:1},{songId:2}] }
+    , { userid: 2, username: 'standana', password: 'tandana', sessionId: '', playlist:  [{songId:1},{songId:2},{songId:3}] }];
 
 
 
@@ -11,12 +13,31 @@ module.exports = class User {
         this.sessionId = sessionId;
         this.playlist = playlist;
     }
-static getPlaylist(username,password){
-    let user = users.filter(u => u.username == username && u.password == password);
-    console.log(user);
-    return user[0].playlist;
-}
 
+static getPlaylist(sessionId){
+    let user = users.find(u => u.sessionId == sessionId);
+    let musicIds=user.playlist.map(x=>x.songId);
+    return Music.fetchAll().filter(x=>musicIds.includes(x.songId));
+}
+//enqueing applications
+static enqueing(songId,sessionId){
+    let user = users.find(u => u.sessionId == sessionId);
+    let songIndex = user.playlist.findIndex(x=>x.songId==songId);
+    if(songIndex<0){
+        user.playlist.push({songId:songId});
+    }
+    return getPlaylist(sessionId);
+
+}
+//dequeing applications
+static dequeing(songId,sessionId){
+    let user = users.find(u => u.sessionId == sessionId);
+    let songIndex = user.playlist.findIndex(x=>x.songId==songId);
+    if(songIndex==0){
+        user.playlist=user.playlist.filter(x=>x.songId!=songId);
+    }
+    return getPlaylist(sessionId);
+}
     static authenticate(username, password) {
 // console.log('boomboom')
 // console.log(users);
@@ -27,7 +48,7 @@ static getPlaylist(username,password){
         }
         else {
             let u = User.getUserByUsername(user[0].username);
-            u.sessionId = Math.random() * Date.now();
+            u.sessionId =Math.floor(Math.random() * Date.now());
             return u;
         }
     }

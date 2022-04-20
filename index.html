@@ -29,19 +29,22 @@
 
             <div  id="search-panel"  class="form-inline">
                 <input class="form-control mr-sm-2" id="txtSearch" type="text" placeholder="search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0"  id="search" type="submit">Search</button>
+                <button class="btn btn-outline-success my-2 my-sm-0"  id="btnSearch" type="submit">Search</button>
               <button class="btn btn-outline-success my-2 my-sm-0"  id="logout" type="submit">Logout</button>
               <!-- <button class="fa fa-minus" -->
             </form>
           </nav>
     </header>
 
-    <main class="main-flex">
+    <main class="main-flex" >
         <div class="spider" id="spider">
-              
+            <h1 class="display-6" style=" font-size: 15px;">music list</h1>
+            <!-- <i class="fa-regular fa-list-music"></i> -->
                <table class="table table-hover table-dark">
-                <caption>List of musics</caption>
+              
                 <thead>
+                    <!-- <i class="fa-solid -list-music"> </i> -->
+
                    <tr>
                        <th scope="col">Id</th>
                        <th scope="col">Title</th>
@@ -52,17 +55,32 @@
                        </th>
                    </tr>
                </thead>
+               
             <tbody id="musicList">
-                
             </tbody>
             </table>
-            playlist
         </div>
-        
 
-
+        <div class="spider" id="myPlayList">
+            <h1 class="display-6" style=" font-size: 15px;">play list</h1>
+            <table class="table table-hover table-dark">
+             <!-- <caption>List of musics</caption> -->
+             <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Artist</th>
+                    <th scope="col">Genre</th>
+                    <th scope="col">Release Date</th>
+                    <th scope="col">Action
+                    </th>
+                </tr>
+            </thead>
+         <tbody id="playList">
+         </tbody>
+         </table>
+     </div>
     </main>
-
 </body>
 
 </html>

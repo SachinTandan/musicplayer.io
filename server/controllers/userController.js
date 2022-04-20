@@ -10,6 +10,12 @@ exports.getUser = (req, res, next) => {
     }
     res.json(check);
 }
+exports.getEnque= (req, res, next) => {
+    res.json(User.enqueing(req.body.songId,req.body.sessionId))
+}
+exports.getDnque= (req, res, next) => {
+    res.json(User.dequeing(req.body.songId,req.body.sessionId))
+}
 exports.getPlaylist=(req,res,next)=>{
-res.json(User.getPlaylist(req.body.username,req.body.password));
+res.json(User.getPlaylist(req.params.sessionId));
 }

@@ -8,7 +8,9 @@ exports.getMusics = (req, res, next) => {
 exports.getMusicById = (req, res, next) => {
     res.status(200).json(Music.findById(req.params.bookId));
 }
-
+exports.getByTitle=(req, res, next)=>{
+    res.json(Music.findByTitle(req.query.title));
+}
 exports.save = (req, res, next) => {
     const music = req.body;
     const savedMusic = new Music(null, music.title, music.publishedDate, music.author).save();

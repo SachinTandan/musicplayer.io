@@ -4,7 +4,7 @@ const musicController = require('../controllers/musicControllers');
 const router = express.Router();
 
 router.get('/', musicController.getMusics);
-
+router.get('/search',musicController.getByTitle); //searching operation with title
 router.get('/:musicId', musicController.getMusicById);
 
 router.post('/', musicController.save);

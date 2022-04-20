@@ -30,6 +30,7 @@ app.use(express.urlencoded());
 // app.use(passport.initialize());
 // app.use(passport.session())
 app.use('/musics', musicRouter);
+
 app.use('/login',userRouter);
 app.use('/playlist',userRouter);
 app.use((req, res, next) => {

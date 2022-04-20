@@ -6,41 +6,156 @@ function initialize() {
         document.getElementById("spider").style.display = "none";
         document.getElementById("someform").style.display = "block";
         document.getElementById("search-panel").style.display = "none";
-        // document.getElementById("playlist").style.display = "none";
+        document.getElementById("myPlayList").style.display = "none";
     }
     else {
         document.getElementById("spider").style.display = "block";
         document.getElementById("someform").style.display = "none";
         document.getElementById("search-panel").style.display = "block";
-        // document.getElementById("playlist").style.display = "block";
+        document.getElementById("myPlayList").style.display = "block";
         fetchAllSongs();
-        
+        fetchAllPlaylist();
+
     }
 }
-// function fetchAllPlaylist(username, password) {
-//     fetch('http://localhost:4000/playlist', {
-//         method: 'GET',
-//     });
+//for playList
+function fetchAllPlaylist() {
+    fetch('http://localhost:5000/playlist/' + sessionStorage.getItem("sessionId"), {
+        method: 'GET',
+    }).then(res => res.json())
+        .then(res => {
+
+            let htmlString = "";
+            res.forEach(element => {
+                htmlString += `<tr><td>${element.songId}</td>
+                    <td >${element.title}</td>
+                    <td>${element.artist}</td>
+                    <td>${element.genre}</td>
+                    <td>${element.releaseDate}</td>
+                    <td><button  id="addToplaylist"  class="fa-solid fa-minus" ></button>
+                        <button  id="addToplaylist"  class="fa-solid fa-play" ></button></td></tr>`;
+            });
+            htmlString += "";
+            document.getElementById("playList").innerHTML = htmlString;
+        });
+}
+// add action listner for search
+document.getElementById("btnSearch").addEventListener("click", (e) => {
+    fetch(
+      "http://localhost:5000/musics/search?title=" +
+        document.getElementById("txtSearch").value
+    )
+      .then((res) => res.json())
+      .then((res) => {
+        showDataInSongListTable(res);
+        // refreshSongListEvent();
+      });
+  });
+  //function to refresh the data in the playlist
+const showDataInSongListTable = function (data) {
+    let htmlString = "";
+      data.forEach((element) => {
+        htmlString += " <tr>";
+        htmlString += `<td>${element.songId}</td>`;
+        htmlString += `<td >${element.title}</td>`;
+        htmlString += `<td>${element.artist}</td>`;
+        htmlString += `<td>${element.genre}</td>`;
+        htmlString += `<td>${element.releaseDate}</td>`;
+          htmlString += ` <td style="text-align:center;"><span><i tag="${element.songId}" class="fa fa-plus queue"></i></span></td>`;
+        htmlString += "</tr>";
+      });
+    document.getElementById("musicList").innerHTML = htmlString;
+  };
+//for songs..
 function fetchAllSongs() {
     fetch('http://localhost:5000/musics', {
         method: 'GET',
     }).then(res => res.json())
         .then(res => {
-            
-            let htmlString="";
+
+            let htmlString = "";
             res.forEach(element => {
-                htmlString+=`<tr><td>${element.songId}</td>
+                htmlString += `<tr><td>${element.songId}</td>
                 <td >${element.title}</td>
                 <td>${element.artist}</td>
                 <td>${element.genre}</td>
                 <td>${element.releaseDate}</td>
-                <td><button  id="addToplaylist"  class="fa-solid fa-plus" ></button></td></tr>`;
+                <td><button tag=${element.songId}  id="addToplaylist"  class="fa-solid fa-plus queue" ></button></td></tr>`;
             });
-            htmlString+="";
-            console.log(htmlString);
-            document.getElementById("musicList").innerHTML=htmlString;
+            htmlString += "";
+            document.getElementById("musicList").innerHTML = htmlString;
         });
 }
+//enqueing the plus button from songs song list
+//function to refresh the event binding of song list
+function refreshSongListEvent() {
+    let btns = document.getElementsByClassName("queue");
+    Array.prototype.forEach.call(btns, function addClickListener(btn) {
+      btn.addEventListener("click", function (event) {
+        enqueue(this.getAttribute("tag"));
+      });
+    });
+  }
+//function to enqueue the songs
+const enqueue = function (songId) {
+    fetch("http://localhost:5000/users/enqueueSong", {
+      method: "POST",
+      body: JSON.stringify({
+        sessionId: sessionUserId,
+        songId: parseInt(songId),
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => res.json())
+      .then(res => {
+
+        let htmlString = "";
+        res.forEach(element => {
+            htmlString += `<tr><td>${element.songId}</td>
+                <td >${element.title}</td>
+                <td>${element.artist}</td>
+                <td>${element.genre}</td>
+                <td>${element.releaseDate}</td>
+                <td><button  id="addToplaylist"  class="fa-solid fa-minus" ></button>
+                    <button  id="addToplaylist"  class="fa-solid fa-play" ></button></td></tr>`;
+        });
+        htmlString += "";
+        document.getElementById("playList").innerHTML = htmlString;
+    })
+  }
+
+//function to dequeue the songs
+const dequeue = function (songId) {
+    fetch("http://localhost:5000/users/dequeueSong", {
+      method: "POST",
+      body: JSON.stringify({
+        sessionId: sessionUserId,
+        songId: parseInt(songId),
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => res.json())
+      .then(res => {
+
+        let htmlString = "";
+        res.forEach(element => {
+            htmlString += `<tr><td>${element.songId}</td>
+                <td >${element.title}</td>
+                <td>${element.artist}</td>
+                <td>${element.genre}</td>
+                <td>${element.releaseDate}</td>
+                <td><button  id="addToplaylist"  class="fa-solid fa-minus" ></button>
+                    <button  id="addToplaylist"  class="fa-solid fa-play" ></button></td></tr>`;
+        });
+        htmlString += "";
+        document.getElementById("playList").innerHTML = htmlString;
+    })
+  };
+
 //2.login part- flows from here.
 document.getElementById('someform').addEventListener('submit', e => {
     e.preventDefault();
@@ -63,8 +178,6 @@ document.getElementById('someform').addEventListener('submit', e => {
                 alert("Login Successful.");
                 sessionStorage.setItem("sessionId", res.sessionId);
                 initialize();
-                //enable disable
-                // fetAllPlaylist(document.getElementById('username').value,document.getElementById('password').value);
             }
         })
 });
