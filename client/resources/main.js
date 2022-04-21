@@ -7,12 +7,14 @@ function initialize() {
     document.getElementById("someform").style.display = "block";
     document.getElementById("search-panel").style.display = "none";
     document.getElementById("myPlayList").style.display = "none";
+    document.getElementById("footerSegment").style.display = "none";
   }
   else {
     document.getElementById("spider").style.display = "block";
     document.getElementById("someform").style.display = "none";
     document.getElementById("search-panel").style.display = "block";
     document.getElementById("myPlayList").style.display = "block";
+    document.getElementById("footerSegment").style.display = "block";
     fetchAllSongs();
     
     fetchAllPlaylist();
@@ -27,6 +29,7 @@ function fetchAllPlaylist() {
     .then(res => {
 
       loadMyPlayList(res);
+      
     });
 }
 // add action listner for search
@@ -92,6 +95,17 @@ function refreshPlayListEvent() {
     });
   });
 }
+
+
+function refreshPlayerListEvent() {
+  let btns = document.getElementsByClassName("playSong");
+  Array.prototype.forEach.call(btns, function addClickListener(btn) {
+    btn.addEventListener("click", function (event) {
+      playFromHere(this.getAttribute("tag"));
+    });
+  });
+}
+
 //function to enqueue the songs
 const enqueue = function (songId) {
   fetch("http://localhost:5000/playlist/enqueueSong", {
@@ -119,16 +133,19 @@ function loadMyPlayList(res){
             <td>${element.genre}</td>
             <td>${element.releaseDate}</td>
             <td><button  tag="${element.songId}" class="fa-solid fa-minus  dequeue" ></button>
-                <button  id="addToplaylist"  class="fa-solid fa-play playSong" ></button></td></tr>`;
+                <button tag="${element.songId}"  id="addToplaylist"  class="fa-solid fa-play playSong" ></button></td></tr>`;
   });
   htmlString += "";
   document.getElementById("playList").innerHTML = htmlString;
+  loadSongsInPlayer(res);
   refreshPlayListEvent();
+  refreshPlayerListEvent();
+  refreshPlayListForPlayerEvent();
 }
 //function to dequeue the songs
 const dequeue = function (songId) {
   console.log('fetch wala funtio'+sessionStorage.getItem("sessionId"));
-    fetch("http://localhost:5000/playlist/dequeueSong", {
+    fetch("http://localhost:5000/playlist/dequeueSong", { 
     method: "POST",
     body: JSON.stringify({
       sessionId: sessionStorage.getItem("sessionId"),
@@ -174,5 +191,34 @@ document.getElementById('someform').addEventListener('submit', e => {
 
 document.getElementById("logout").addEventListener('click', () => {
   sessionStorage.removeItem("sessionId");
+  stopPlayback();
   initialize();
 });
+
+
+//SONG SCRIPTS ARE FROM HERE WE
+
+//song to play from here
+const playFromHere = (songId) => {
+  startPlayingFromHere(songId);
+};
+
+function refreshPlayListForPlayerEvent() {
+  let btns = document.getElementsByClassName("playSong");
+  Array.prototype.forEach.call(btns, function addClickListener(btn) {
+    btn.addEventListener("click", function (event) {
+      playFromHere(this.getAttribute("tag"));
+    });
+  });
+}
+
+// function fetchByLoginId() {
+//   fetch("http://localhost:5000/users/getSongs/" + sessionStorage.getItem("sessionId"))
+//     .then((res) => res.json())
+//     .then((res) => {
+//       loadSongsInPlayer(res);
+//       dataInPlayList(res);
+//       refreshPlayListSong();
+//       refreshPlayListForPlayerEvent();
+//     });
+// }

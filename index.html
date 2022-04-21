@@ -8,78 +8,122 @@
     <title>Sachin's Music Store</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
         integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-    <!-- <link href="../musicplayer.io/client/resources/bootstrap.min.css" rel="stylesheet"> -->
-    <!-- <link href="../musicplayer.io/client/resources/custom.css" rel="stylesheet"> -->
-    <!-- <script src="./resources/bootstrap.bundle.min.js"></script> -->
-    <script src="https://kit.fontawesome.com/d62ae8056d.js" 
-      crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="./song.css">
+    <script src="https://kit.fontawesome.com/d62ae8056d.js" crossorigin="anonymous"></script>
     <script src="./client/resources/main.js" defer></script>
+    <script src="./client/resources/song.js" defer></script>
 </head>
 
 <body>
 
     <header>
         <nav class="navbar navbar-dark bg-dark justify-content-between">
-            <a class="navbar-brand">Music Player       <i class='fas fa-headphones' style='font-size:48px;color:red'></i></a>
-            <form  id="someform"  class="form-inline">
-                <input class="form-control mr-sm-2" id="username" required type="username" placeholder="username" aria-label="Search">
-                <input class="form-control mr-sm-2" id="password" required type="password" placeholder="password" aria-label="Search">
-              <button class="btn btn-outline-success my-2 my-sm-0"  id="submit" type="submit">Login</button>
+            <a class="navbar-brand">Music Player <i class='fas fa-headphones' style='font-size:48px;color:red'></i></a>
+            <form id="someform" class="form-inline">
+                <input class="form-control mr-sm-2" id="username" required type="username" placeholder="username"
+                    aria-label="Search">
+                <input class="form-control mr-sm-2" id="password" required type="password" placeholder="password"
+                    aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" id="submit" type="submit">Login</button>
             </form>
 
-            <div  id="search-panel"  class="form-inline">
+            <div id="search-panel" class="form-inline">
                 <input class="form-control mr-sm-2" id="txtSearch" type="text" placeholder="search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0"  id="btnSearch" type="submit">Search</button>
-              <button class="btn btn-outline-success my-2 my-sm-0"  id="logout" type="submit">Logout</button>
-              <!-- <button class="fa fa-minus" -->
-            </form>
-          </nav>
+                <button class="btn btn-outline-success my-2 my-sm-0" id="btnSearch" type="submit">Search</button>
+                <button class="btn btn-outline-success my-2 my-sm-0" id="logout" type="submit">Logout</button>
+                <!-- <button class="fa fa-minus" -->
+                </form>
+        </nav>
     </header>
 
-    <main class="main-flex" >
+    <main class="main-flex">
         <div class="spider" id="spider">
             <h1 class="display-6" style=" font-size: 15px;">music list</h1>
             <!-- <i class="fa-regular fa-list-music"></i> -->
-               <table class="table table-hover table-dark">
-              
+            <table class="table table-hover table-dark">
+
                 <thead>
                     <!-- <i class="fa-solid -list-music"> </i> -->
 
-                   <tr>
-                       <th scope="col">Id</th>
-                       <th scope="col">Title</th>
-                       <th scope="col">Artist</th>
-                       <th scope="col">Genre</th>
-                       <th scope="col">Release Date</th>
-                       <th scope="col">Action
-                       </th>
-                   </tr>
-               </thead>
-               
-            <tbody id="musicList">
-            </tbody>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Artist</th>
+                        <th scope="col">Genre</th>
+                        <th scope="col">Release Date</th>
+                        <th scope="col">Action
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody id="musicList">
+                </tbody>
             </table>
         </div>
 
         <div class="spider" id="myPlayList">
             <h1 class="display-6" style=" font-size: 15px;">play list</h1>
             <table class="table table-hover table-dark">
-             <!-- <caption>List of musics</caption> -->
-             <thead>
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Artist</th>
-                    <th scope="col">Genre</th>
-                    <th scope="col">Release Date</th>
-                    <th scope="col">Action
-                    </th>
-                </tr>
-            </thead>
-         <tbody id="playList">
-         </tbody>
-         </table>
-     </div>
+                <!-- <caption>List of musics</caption> -->
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Artist</th>
+                        <th scope="col">Genre</th>
+                        <th scope="col">Release Date</th>
+                        <th scope="col">Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody id="playList">
+                </tbody>
+            </table>
+
+            <!-- <audio src="" type="audio/mpeg" id="player" controls ></audio> -->
+        </div>
+        <div>
+            <!-- audio part of at footerSegment -->
+            <footer id="footerSegment">
+                <div class="audio-player">
+                    <div id="timeline" class="timeline">
+                        <div class="progress"></div>
+                    </div>
+                    <div class="controls">
+                        <div class="play-container">
+                            <div class="backward">
+                                <button id="backward-icon" class="audio-btn fa fa-step-backward fa-2x"></button>
+                            </div>
+                            <div class="toggle-play play">
+                                <button id="play-icon" class="audio-btn fa fa-play fa-2x"></button>
+                            </div>
+                            <div class="forward">
+                                <button id="forward-icon" class="audio-btn fa fa-step-forward fa-2x"></button>
+                            </div>
+                        </div>
+                        <div id="song-title">-</div>
+                        <div class="time">
+                            <div class="current">0:00</div>
+                            <div class="divider">/</div>
+                            <div class="length">0:00</div>
+                        </div>
+                        <div class="shuffle">
+                            <button id="shuffle-icon" class="audio-btn fa fa-random fa-2x"></button>
+                        </div>
+                        <div class="volume-container">
+                            <div class="volume-button">
+                                <div class="audio-btn volume fa fa-volume-up fa-2x"></div>
+                            </div>
+                            <div id="volume-slider" class="volume-slider">
+                                <div id="volume-percentage" class="volume-percentage"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </footer>
+        </div>
     </main>
 </body>
 
