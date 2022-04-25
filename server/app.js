@@ -1,8 +1,5 @@
 const express = require('express');
-// const session = require('express-session');
-// const passport = require('passport');
 const cors = require('cors');
-// const local = require('./strategies/local')
 
 //importing through routes 
 const musicRouter = require('./routes/musicRoute');
@@ -12,15 +9,6 @@ const userRouter = require('./routes/userRoute');
 const app = express();
 
 
-// app.use(session({
-
-//     secret:'some secret',
-//     cookie:{maxAge:3000},
-//     saveUninitialized:false,
-//     store
-
-
-// }));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded());

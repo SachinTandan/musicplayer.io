@@ -8,6 +8,7 @@ function initialize() {
     document.getElementById("search-panel").style.display = "none";
     document.getElementById("myPlayList").style.display = "none";
     document.getElementById("footerSegment").style.display = "none";
+    // document.getElementsByClassName("background").style.display = "block"
   }
   else {
     document.getElementById("spider").style.display = "block";
@@ -15,6 +16,7 @@ function initialize() {
     document.getElementById("search-panel").style.display = "block";
     document.getElementById("myPlayList").style.display = "block";
     document.getElementById("footerSegment").style.display = "block";
+    // document.getElementsByClassName("background").style.display = "none"
     fetchAllSongs();
     
     fetchAllPlaylist();
