@@ -65,5 +65,6 @@ module.exports = class User {
             throw new Error("User not found");
         }
     }
+    
 
 }
